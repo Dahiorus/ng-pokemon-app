@@ -3,8 +3,9 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@app/*": ["./src/app/*"],
       "@model/*": ["./src/app/model/*"],
+      "@shared/*": ["./src/app/shared/*"],
+      "@app/*": ["./src/app/*"],
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

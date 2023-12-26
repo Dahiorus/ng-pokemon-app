@@ -6,13 +6,6 @@ import { RouterOutlet } from "@angular/router";
   selector: "pkmn-root",
   standalone: true,
   imports: [CommonModule, RouterOutlet],
-  template: `
-    <h1>Welcome to {{ title }}!</h1>
-
-    <router-outlet></router-outlet>
-  `,
-  styleUrls: [],
+  templateUrl: "./app.component.html",
 })
-export class AppComponent {
-  title = "ng-pokemon-app";
-}
+export class AppComponent {}
