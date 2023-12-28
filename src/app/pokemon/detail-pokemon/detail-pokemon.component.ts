@@ -28,4 +28,8 @@ export class DetailPokemonComponent implements OnInit {
   goBack() {
     this.router.navigate(["pokemons"]);
   }
+
+  goToEdit(pokemon: Pokemon) {
+    this.router.navigate(["pokemons", pokemon.id, "edit"]);
+  }
 }
