@@ -72,8 +72,8 @@
 
         <!-- Pokemon types -->
         <form class="form-group">
-          <label for="types">Types</label>
-          <p *ngFor="let type of types">
+             <label for="types">Types</label>
+          <p *ngFor="let type of types$ | async">
             <label>
               <input
                 type="checkbox"

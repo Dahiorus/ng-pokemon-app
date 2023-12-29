@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { PokemonService } from "@app/pokemon/pokemon.service";
 import { Pokemon } from "@model/pokemon.type";
 import { PokemonTypeColorPipe } from "@shared/pokemon-type-color.pipe";
+import {first, Observable, of} from 'rxjs';
 
 @Component({
   selector: "pkmn-form-pokemon",
@@ -18,15 +19,18 @@ export class FormPokemonComponent implements OnInit {
   private router: Router = inject(Router);
 
   @Input() pokemon?: Pokemon;
-  types: string[] = [];
+  types$: Observable<string[]> = of([]);
 
   ngOnInit(): void {
-    this.types = this.pokemonService.getPokemonTypes();
+    this.types$ = this.pokemonService.getPokemonTypes();
   }
 
   onSubmit() {
-    console.log("Submit form!");
-    this.router.navigate(["pokemons", this.pokemon?.id]);
+    if (this.pokemon) {
+       this.pokemonService.updatePokemon(this.pokemon)
+          .pipe(first())
+          .subscribe(pokemon => this.router.navigate(["pokemons", this.pokemon?.id]));
+    }
   }
 
   hasType(type: string): boolean {
@@ -41,7 +45,7 @@ export class FormPokemonComponent implements OnInit {
       return;
     }
 
-    const index = this.pokemon?.types.indexOf(type);
+    const index: number | undefined = this.pokemon?.types.indexOf(type);
     if (index) {
       this.pokemon?.types.splice(index, 1);
     }
@@ -54,10 +58,6 @@ export class FormPokemonComponent implements OnInit {
       return false;
     }
 
-    if (types.length >= 3 && !this.hasType(type)) {
-      return false;
-    }
-
-    return true;
+    return !(types.length >= 3 && !this.hasType(type));
   }
 }

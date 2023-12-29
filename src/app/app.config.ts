@@ -1,8 +1,14 @@
-import { ApplicationConfig } from "@angular/core";
+import {ApplicationConfig, importProvidersFrom} from '@angular/core';
 import { provideRouter, withDebugTracing } from "@angular/router";
 
 import { routes } from "./app.routes";
+import {provideHttpClient} from '@angular/common/http';
+import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {InMemoryDataService} from '@app/in-memory-data.service';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes, withDebugTracing())],
+  providers: [provideRouter(routes),
+    provideHttpClient(),
+    importProvidersFrom(HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {dataEncapsulation: false}))
+  ],
 };

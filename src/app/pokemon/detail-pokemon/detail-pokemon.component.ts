@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { PokemonService } from "@app/pokemon/pokemon.service";
 import { Pokemon } from "@model/pokemon.type";
 import { PokemonTypeColorPipe } from "@shared/pokemon-type-color.pipe";
+import {filter, flatMap, map, Observable, switchMap} from 'rxjs';
 
 @Component({
   selector: "pkmn-detail-pokemon",
@@ -16,13 +17,11 @@ export class DetailPokemonComponent implements OnInit {
   private router: Router = inject(Router);
   private pokemonService: PokemonService = inject(PokemonService);
 
-  pokemon?: Pokemon;
+  pokemon$?: Observable<Pokemon | undefined>;
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      const id = params["id"];
-      this.pokemon = this.pokemonService.getPokemonById(Number(id));
-    });
+    this.pokemon$ = this.route.params.pipe(map(params => params['id']),
+       switchMap(id => this.pokemonService.getPokemonById(id)));
   }
 
   goBack() {

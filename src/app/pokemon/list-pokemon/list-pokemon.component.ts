@@ -5,6 +5,7 @@ import { PokemonService } from "@app/pokemon/pokemon.service";
 import { Pokemon } from "@model/pokemon.type";
 import { BorderCardDirective } from "@shared/border-card.directive";
 import { PokemonTypeColorPipe } from "@shared/pokemon-type-color.pipe";
+import {Observable} from 'rxjs';
 
 @Component({
   selector: "pkmn-list-pokemon",
@@ -16,7 +17,7 @@ export class ListPokemonComponent {
   private router: Router = inject(Router);
   private pokemonService: PokemonService = inject(PokemonService);
 
-  pokemons: Pokemon[] = this.pokemonService.listPokemons();
+  pokemons$?: Observable<Pokemon[]> = this.pokemonService.listPokemons();
 
   goToPokemon(pokemon: Pokemon) {
     this.router.navigate(["pokemons", pokemon.id]);

@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Pokemon } from "@model/pokemon.type";
 import { FormPokemonComponent } from "../form-pokemon/form-pokemon.component";
 import { PokemonService } from "../pokemon.service";
+import {map, Observable, switchMap} from 'rxjs';
 
 @Component({
   selector: "pkmn-edit-pokemon",
@@ -15,14 +16,12 @@ export class EditPokemonComponent implements OnInit {
   private pokemonService: PokemonService = inject(PokemonService);
   private route: ActivatedRoute = inject(ActivatedRoute);
 
-  pokemon?: Pokemon;
+  pokemon$?: Observable<Pokemon | undefined>;
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      const id = params["id"];
-      if (id) {
-        this.pokemon = this.pokemonService.getPokemonById(Number(id));
-      }
-    });
+    this.pokemon$ = this.route.params.pipe(
+       map(params => params['id']),
+       switchMap(id => this.pokemonService.getPokemonById(Number(id)))
+    );
   }
 }

@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row">
-    <div *ngFor="let pokemon of pokemons" class="col l3 m4 s6">
+    <div *ngFor="let pokemon of pokemons$ | async" class="col l3 m4 s6">
       <div
         class="card horizontal"
         pkmn-border-card
         (click)="goToPokemon(pokemon)"
       >
         <div class="card-image">
-          <img [src]="pokemon.picture" />
+          <img [src]="pokemon.picture" [alt]="pokemon.name + ' picture'" />
         </div>
         <div class="card-stacked">
           <div class="card-content">
