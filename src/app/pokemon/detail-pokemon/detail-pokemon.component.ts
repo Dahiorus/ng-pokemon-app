@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { PokemonService } from "@app/pokemon/pokemon.service";
 import { Pokemon } from "@model/pokemon.type";
 import { PokemonTypeColorPipe } from "@shared/pokemon-type-color.pipe";
-import {filter, flatMap, map, Observable, switchMap} from 'rxjs';
+import {filter, first, flatMap, map, Observable, switchMap} from 'rxjs';
 
 @Component({
   selector: "pkmn-detail-pokemon",
@@ -30,5 +30,11 @@ export class DetailPokemonComponent implements OnInit {
 
   goToEdit(pokemon: Pokemon) {
     this.router.navigate(["pokemons", pokemon.id, "edit"]);
+  }
+
+  deletePokemon(pokemon: Pokemon) {
+    this.pokemonService.deletePokemonById(pokemon.id)
+       .pipe(first())
+       .subscribe(() => this.goBack());
   }
 }

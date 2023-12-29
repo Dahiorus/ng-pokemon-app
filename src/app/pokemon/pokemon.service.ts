@@ -35,6 +35,14 @@ export class PokemonService {
         );
   }
 
+   deletePokemonById(id: number): Observable<null> {
+      return this.http.delete(`api/pokemons/${id}`)
+         .pipe(
+            tap(this.logResponse<any>),
+            catchError(err => this.handleError(err, null))
+         );
+   }
+
   getPokemonTypes(): Observable<string[]> {
     return this.listPokemons().pipe(
           map(pokemons => pokemons.flatMap((pkmn: Pokemon) => pkmn.types)),
