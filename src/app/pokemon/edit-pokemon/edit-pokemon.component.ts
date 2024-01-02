@@ -5,11 +5,12 @@ import { Pokemon } from "@model/pokemon.type";
 import { FormPokemonComponent } from "../form-pokemon/form-pokemon.component";
 import { PokemonService } from "../pokemon.service";
 import {map, Observable, switchMap} from 'rxjs';
+import {LoadingComponent} from '@shared/loading/loading.component';
 
 @Component({
   selector: "pkmn-edit-pokemon",
   standalone: true,
-  imports: [CommonModule, FormPokemonComponent],
+   imports: [CommonModule, FormPokemonComponent, LoadingComponent],
   templateUrl: "./edit-pokemon.component.html",
 })
 export class EditPokemonComponent implements OnInit {

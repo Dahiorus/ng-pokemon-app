@@ -1,5 +1,5 @@
 <form
-  *ngIf="pokemon; else emptyBlock"
+  *ngIf="pokemon"
   (ngSubmit)="onSubmit()"
   #pokemonForm="ngForm"
 >
@@ -127,6 +127,3 @@
     </div>
   </div>
 </form>
-<ng-template #emptyBlock>
-  <h3 class="center">Aucun pokémon à éditer...</h3>
-</ng-template>

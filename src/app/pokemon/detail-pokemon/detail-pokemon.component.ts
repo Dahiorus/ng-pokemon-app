@@ -5,11 +5,12 @@ import {PokemonService} from '@app/pokemon/pokemon.service';
 import {Pokemon} from '@model/pokemon.type';
 import {PokemonTypeColorPipe} from '@shared/pokemon-type-color.pipe';
 import {first, map, Observable, switchMap} from 'rxjs';
+import {LoadingComponent} from '@shared/loading/loading.component';
 
 @Component({
   selector: "pkmn-detail-pokemon",
   standalone: true,
-  imports: [CommonModule, PokemonTypeColorPipe],
+  imports: [CommonModule, PokemonTypeColorPipe, LoadingComponent],
   templateUrl: "./detail-pokemon.component.html",
 })
 export class DetailPokemonComponent implements OnInit {

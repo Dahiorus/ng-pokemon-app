@@ -62,12 +62,12 @@ export class FormPokemonComponent implements OnInit {
   }
 
   isTypesValid(type: string): boolean {
-    const types = this.pokemon?.types || [];
+    const types: string[] = this.pokemon?.types || [];
 
     if (types.length == 1 && this.hasType(type)) {
       return false;
     }
 
-    return !(types.length >= 3 && !this.hasType(type));
+    return types.length < 3 || this.hasType(type);
   }
 }
