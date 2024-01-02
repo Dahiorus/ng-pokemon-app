@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {Pokemon} from '@model/pokemon.type';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, forkJoin, map, mergeAll, mergeMap, Observable, of, switchMap, tap} from 'rxjs';
+import {catchError, map, Observable, of, tap} from 'rxjs';
 
 @Injectable({
   providedIn: "root",
@@ -15,6 +15,17 @@ export class PokemonService {
        tap(this.logResponse<Pokemon[]>),
        catchError(err => this.handleError(err, []))
     );
+  }
+
+  addPokemon(pokemon: Pokemon): Observable<Pokemon | undefined> {
+     const httpOptions= {
+        headers: new HttpHeaders({'Content-Type': 'application/json'})
+     };
+     return this.http.post<Pokemon>('api/pokemons', pokemon, httpOptions)
+        .pipe(
+           tap(this.logResponse<Pokemon>),
+           catchError(err => this.handleError(err, undefined))
+        );
   }
 
   getPokemonById(id: number): Observable<Pokemon | undefined> {

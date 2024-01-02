@@ -1,10 +1,10 @@
-import { CommonModule } from "@angular/common";
-import { Component, OnInit, inject } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { PokemonService } from "@app/pokemon/pokemon.service";
-import { Pokemon } from "@model/pokemon.type";
-import { PokemonTypeColorPipe } from "@shared/pokemon-type-color.pipe";
-import {filter, first, flatMap, map, Observable, switchMap} from 'rxjs';
+import {CommonModule} from '@angular/common';
+import {Component, inject, OnInit} from '@angular/core';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {PokemonService} from '@app/pokemon/pokemon.service';
+import {Pokemon} from '@model/pokemon.type';
+import {PokemonTypeColorPipe} from '@shared/pokemon-type-color.pipe';
+import {first, map, Observable, switchMap} from 'rxjs';
 
 @Component({
   selector: "pkmn-detail-pokemon",
@@ -20,7 +20,7 @@ export class DetailPokemonComponent implements OnInit {
   pokemon$?: Observable<Pokemon | undefined>;
 
   ngOnInit(): void {
-    this.pokemon$ = this.route.params.pipe(map(params => params['id']),
+    this.pokemon$ = this.route.params.pipe(map((params : Params) => params['id']),
        switchMap(id => this.pokemonService.getPokemonById(id)));
   }
 
@@ -33,8 +33,11 @@ export class DetailPokemonComponent implements OnInit {
   }
 
   deletePokemon(pokemon: Pokemon) {
-    this.pokemonService.deletePokemonById(pokemon.id)
-       .pipe(first())
-       .subscribe(() => this.goBack());
+     const id: number | undefined = pokemon.id;
+     if (id) {
+      this.pokemonService.deletePokemonById(id)
+         .pipe(first())
+         .subscribe(() => this.goBack());
+    }
   }
 }

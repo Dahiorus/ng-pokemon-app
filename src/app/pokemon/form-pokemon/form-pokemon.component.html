@@ -19,12 +19,31 @@
             name="name"
             #name="ngModel"
           />
+           <div
+             [hidden]="name.valid || name.pristine"
+             class="card-panel red accent-1"
+           >
+              Le nom du pokémon est requis (1-25).
+           </div>
+        </div>
 
+           <!-- Pokemon picture -->
+           <div *ngIf="!isUpdate" class="form-group">
+              <label for="picture">Nom</label>
+              <input
+                    type="text"
+                    class="form-control"
+                    id="picture"
+                    required
+                    [(ngModel)]="pokemon.picture"
+                    name="picture"
+                    #picture="ngModel"
+              />
           <div
-            [hidden]="name.valid || name.pristine"
+            [hidden]="picture.valid || picture.pristine"
             class="card-panel red accent-1"
           >
-            Le nom du pokémon est requis (1-25).
+            L'image du pokémon est requise.
           </div>
         </div>
 

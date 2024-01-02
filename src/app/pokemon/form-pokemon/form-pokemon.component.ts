@@ -20,16 +20,26 @@ export class FormPokemonComponent implements OnInit {
 
   @Input() pokemon?: Pokemon;
   types$: Observable<string[]> = of([]);
+  isUpdate?: boolean;
 
   ngOnInit(): void {
     this.types$ = this.pokemonService.getPokemonTypes();
+    this.isUpdate = this.router.url.includes('edit');
   }
 
   onSubmit() {
-    if (this.pokemon) {
-       this.pokemonService.updatePokemon(this.pokemon)
-          .pipe(first())
-          .subscribe(pokemon => this.router.navigate(["pokemons", this.pokemon?.id]));
+    if (!this.pokemon) {
+       return;
+    }
+    if (this.isUpdate) {
+      this.pokemonService.updatePokemon(this.pokemon)
+         .pipe(first())
+         .subscribe(() => this.router.navigate(["pokemons", this.pokemon?.id]));
+    }
+    else {
+      this.pokemonService.addPokemon(this.pokemon)
+         .pipe(first())
+         .subscribe((pokemon: Pokemon | undefined) => this.router.navigate(["pokemons", pokemon?.id]));
     }
   }
 

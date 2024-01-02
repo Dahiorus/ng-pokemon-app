@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
-import { Router } from "@angular/router";
+import {Router, RouterLink} from '@angular/router';
 import { PokemonService } from "@app/pokemon/pokemon.service";
 import { Pokemon } from "@model/pokemon.type";
 import { BorderCardDirective } from "@shared/border-card.directive";
@@ -10,7 +10,7 @@ import {Observable} from 'rxjs';
 @Component({
   selector: "pkmn-list-pokemon",
   standalone: true,
-  imports: [CommonModule, BorderCardDirective, PokemonTypeColorPipe],
+   imports: [CommonModule, BorderCardDirective, PokemonTypeColorPipe, RouterLink],
   templateUrl: "./list-pokemon.component.html",
 })
 export class ListPokemonComponent {
