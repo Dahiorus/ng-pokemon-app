@@ -6,11 +6,12 @@ import { Pokemon } from "@model/pokemon.type";
 import { BorderCardDirective } from "@shared/border-card.directive";
 import { PokemonTypeColorPipe } from "@shared/pokemon-type-color.pipe";
 import {Observable} from 'rxjs';
+import {SearchPokemonComponent} from '@app/pokemon/search-pokemon/search-pokemon.component';
 
 @Component({
   selector: "pkmn-list-pokemon",
   standalone: true,
-   imports: [CommonModule, BorderCardDirective, PokemonTypeColorPipe, RouterLink],
+   imports: [CommonModule, BorderCardDirective, PokemonTypeColorPipe, RouterLink, SearchPokemonComponent],
   templateUrl: "./list-pokemon.component.html",
 })
 export class ListPokemonComponent {
