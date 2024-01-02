@@ -1,5 +1,5 @@
-<ng-container *ngIf="(pokemon$ | async) as pokemon">
-   <div *ngIf="pokemon; else emptyBlock" class="row">
+<ng-container *ngIf="(pokemon$ | async) as pokemon else emptyBlock">
+   <div class="row">
       <div class="col s12 m8 offset-m2">
          <h2 class="header center">{{ pokemon.name }}</h2>
          <div class="card horizontal hoverable">
@@ -56,7 +56,7 @@
          </div>
       </div>
    </div>
-   <ng-template #emptyBlock>
-      <h4 class="center">Aucun Pokémon à afficher !</h4>
-   </ng-template>
 </ng-container>
+<ng-template #emptyBlock>
+   <h4 class="center">Aucun Pokémon à afficher !</h4>
+</ng-template>
