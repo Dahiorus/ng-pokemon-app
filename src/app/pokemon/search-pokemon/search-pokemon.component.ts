@@ -10,7 +10,6 @@ import {PokemonService} from '@app/pokemon/pokemon.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './search-pokemon.component.html',
-  styleUrl: './search-pokemon.component.css'
 })
 export class SearchPokemonComponent implements OnInit {
   private router: Router = inject(Router);
