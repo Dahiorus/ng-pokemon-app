@@ -4,6 +4,8 @@ import { ListPokemonComponent } from "@app/pokemon/list-pokemon/list-pokemon.com
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { EditPokemonComponent } from "./pokemon/edit-pokemon/edit-pokemon.component";
 import {AddPokemonComponent} from '@app/pokemon/add-pokemon/add-pokemon.component';
+import {authGuard} from '@app/auth/auth.guard';
+import {LoginComponent} from '@app/login/login.component';
 
 export const routes: Routes = [
   {
@@ -17,14 +19,20 @@ export const routes: Routes = [
   {
     path: "pokemons/:id",
     component: DetailPokemonComponent,
+    canActivate: [authGuard],
   },
   {
     path: "pokemons/:id/edit",
     component: EditPokemonComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: "login",
+    component: LoginComponent,
   },
   {
     path: "",
-    redirectTo: "pokemons",
+    redirectTo: "login",
     pathMatch: "full",
   },
   {

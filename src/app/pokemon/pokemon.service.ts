@@ -12,7 +12,7 @@ export class PokemonService {
 
   listPokemons(): Observable<Pokemon[]> {
     return this.http.get<Pokemon[]>('api/pokemons').pipe(
-       tap(this.logResponse<Pokemon[]>),
+       tap<Pokemon[]>(console.table),
        catchError(err => this.handleError(err, []))
     );
   }
@@ -22,7 +22,7 @@ export class PokemonService {
         return of([]);
      }
      return this.http.get<Pokemon[]>(`api/pokemons?name=${term}`).pipe(
-        tap(this.logResponse<Pokemon[]>),
+        tap<Pokemon[]>(console.table),
         catchError(err => this.handleError(err, []))
      );
   }
@@ -33,14 +33,14 @@ export class PokemonService {
      };
      return this.http.post<Pokemon>('api/pokemons', pokemon, httpOptions)
         .pipe(
-           tap(this.logResponse<Pokemon>),
+           tap<Pokemon>(console.table),
            catchError(err => this.handleError(err, undefined))
         );
   }
 
   getPokemonById(id: number): Observable<Pokemon | undefined> {
      return this.http.get<Pokemon>(`api/pokemons/${id}`).pipe(
-        tap(this.logResponse<Pokemon>),
+        tap<Pokemon>(console.table),
         catchError(err => this.handleError(err, undefined))
      );
   }
@@ -51,7 +51,7 @@ export class PokemonService {
      };
      return this.http.put<Pokemon>(`api/pokemons/${pokemon.id}`, pokemon, httpOptions)
         .pipe(
-           this.logResponse,
+           tap<Pokemon>(console.table),
            catchError(err => this.handleError(err, undefined))
         );
   }
@@ -59,22 +59,17 @@ export class PokemonService {
    deletePokemonById(id: number): Observable<null> {
       return this.http.delete(`api/pokemons/${id}`)
          .pipe(
-            tap(this.logResponse<any>),
+            tap<any>(console.table),
             catchError(err => this.handleError(err, null))
          );
    }
 
   getPokemonTypes(): Observable<string[]> {
     return this.listPokemons().pipe(
-          map(pokemons => pokemons.flatMap((pkmn: Pokemon) => pkmn.types)),
+          map((pokemons: Pokemon[]) => pokemons.flatMap((pkmn: Pokemon) => pkmn.types)),
           map((types: string[]) => [... new Set(types)]),
-          tap(this.logResponse<string[]>),
+          tap<string[]>(console.table),
     );
-  }
-
-  private logResponse<T>(response: T): T {
-     console.table(response);
-     return response;
   }
 
   private handleError<T>(error: Error, returnedValue: T): Observable<T> {

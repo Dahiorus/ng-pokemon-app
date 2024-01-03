@@ -11,7 +11,7 @@ import {SearchPokemonComponent} from '@app/pokemon/search-pokemon/search-pokemon
 @Component({
   selector: "pkmn-list-pokemon",
   standalone: true,
-   imports: [CommonModule, BorderCardDirective, PokemonTypeColorPipe, RouterLink, SearchPokemonComponent],
+  imports: [CommonModule, BorderCardDirective, PokemonTypeColorPipe, RouterLink, SearchPokemonComponent],
   templateUrl: "./list-pokemon.component.html",
 })
 export class ListPokemonComponent {
